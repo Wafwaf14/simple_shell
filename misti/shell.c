@@ -1,23 +1,18 @@
 #include "main.h"
 
 /**
-* main - creating a simple shell 0.1
+* main - Simple shell 0.4
 *
 * Return: 0
-*
-* Description: This program simply handles EOF and absolute
-* file paths
 */
 
 int main(void)
 {
-pid_t child;
-char *line, *exit_it = "exit";
-size_t len = 0;
+char *line, *exit_it = "exit", *command, **argv;
+size_t len, word_num;
 ssize_t nread;
-int status;
-char **argv = malloc(2 * sizeof(char *));
 
+len = word_num = 0;
 while (true)
 {
 	printf("$ ");
@@ -30,26 +25,14 @@ while (true)
 	line[nread - 1] = '\0';
 	if (nread < 0 || *line == *exit_it)
 		break;
-	line = find_path(line);
-	argv[0] = malloc(_strlen(line) + 1);
-	_strcpy(argv[0], line);
-	argv[1] = NULL;
-	child = fork();
-	if (child == -1)
-	{
-		perror("./shell");
-		return (1);
-	}
-	if (child == 0)
-	{
-		if (execve(argv[0], argv, NULL) == -1)
-		{
-			perror("./shell");
-			exit(0);
-		}
-	}
+	word_num = count_words(line, " ");
+	argv = malloc((word_num + 1) * sizeof(char *));
+	argv = strtow(line, " ");
+	command = find_path(argv[0]);
+	if (command == NULL)
+		perror("/shell");
 	else
-		wait(&status);
+		argv[0] = command, child_pr(argv);
 }
 return (0);
 }
