@@ -24,7 +24,7 @@ int main(int ac, char **av)
 	printf("$ ");
 	num_char = getline(&buffer, &size_buffer, stdin);
 	 if (num_char == EOF)
-		 perror("getlone");
+		 perror("getline");
 	 printf("%s\n",buffer);
 	  return (0);
 }
