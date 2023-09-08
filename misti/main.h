@@ -8,6 +8,9 @@
 #include <stdbool.h>
 #include <sys/stat.h>
 
+/****** MAIN OPERATIONS **********/
+void child_pr(char **argv);
+
 /**** STRING HANDLING FUNCTIONS ******/
 int _strlen(char *s);
 char *_strcat(char *dest, char *src);

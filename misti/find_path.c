@@ -32,7 +32,7 @@ if (command[0] != '/')
 		if (stat(full_path, &st) == 0)
 		{
 			if (st.st_mode & S_IXUSR)
-				break;
+				return (full_path);
 		}
 		free(full_path);
 	}
@@ -49,5 +49,5 @@ else
 	free(full_path);
 }
 
-return (full_path);
+return (NULL);
 }
