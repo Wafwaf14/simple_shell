@@ -22,7 +22,7 @@ char *_getenv(const char *env_var)
 		char *token ;
 		char *cmd_full ;
 		struct stat st;
-		
+
 		token = strlen(pat, ":");
 		while (token)
 		{
