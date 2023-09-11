@@ -18,8 +18,15 @@ char *_strcpy(char *dest, char *src);
 int count_words(char *str, const char *delimiter);
 char *copy_word(char *str, int start, int end);
 char **strtow(char *str, const char *delimiter);
+int _strcmp(const char *str1, const char *str2);
+int _strlen_const(const char *s);
 
 /***** HANDLING THE PATH *****/
 char *find_path(char *command);
+
+/**** BUILTIN COMMANDS *****/
+void envir(void);
+int handle_builtin(char *line);
+char *built_picker(char *line, const char *delimiter);
 
 #endif

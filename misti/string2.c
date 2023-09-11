@@ -101,3 +101,48 @@ while (k < n_words)
 tab[k] = NULL;
 return (tab);
 }
+
+/**
+* _strlen_const - printing the length of a string with read only capacity
+* @s: string being dereferenced
+*
+* Return: 0 if successful
+*/
+
+int _strlen_const(const char *s)
+{
+int i;
+for (i = 0 ; *s != '\0' ; i++)
+{
+        s++;
+}
+
+return (i);
+}
+
+/**
+* _strcmp - comparing two strings
+* @str1: first string
+* str2: second string
+*
+* Return: 0 if successful or -1 on failure
+*/
+
+int _strcmp(const char *str1, const char *str2)
+{
+int len1, len2, i;
+
+len1 = _strlen_const(str1);
+len2 = _strlen_const(str2);
+
+if (len1 != len2)
+	return (-1);
+
+for (i = 0; i < len1; i++)
+{
+	if (str1[i] != str2[i])
+		return (-1);
+}
+
+return (0);
+}
