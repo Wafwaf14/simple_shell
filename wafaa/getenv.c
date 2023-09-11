@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+// function can 
 char *_getenv(const char *env_var)
 {
 	extern char **environ;
