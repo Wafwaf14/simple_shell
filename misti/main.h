@@ -26,7 +26,9 @@ char *find_path(char *command);
 
 /**** BUILTIN COMMANDS *****/
 void envir(void);
+void exit_status(char *line);
 int handle_builtin(char *line);
 char *built_picker(char *line, const char *delimiter);
+int _atoi(char *s);
 
 #endif
