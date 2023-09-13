@@ -56,6 +56,11 @@ else if (_strcmp(builtin, "exit") == 0)
 	exit_status(line);
 	return (0);
 }
+else if (_strcmp(builtin, "cd") == 0)
+{
+	_cd(line);
+	return (0);
+}
 return (-1);
 }
 

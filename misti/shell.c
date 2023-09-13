@@ -17,7 +17,7 @@ while (true)
 {
 	printf("$ ");
 	nread = getline(&line, &len, stdin);
-	if (nread == -1)
+	if (nread == -1 || line == NULL)
 	{
 		printf("\n");
 		break;

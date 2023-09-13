@@ -41,3 +41,41 @@ else
 	exit(1);
 }
 }
+
+/**
+* _cd - change directory
+* @line: line with cd command
+*
+* Return: void
+*/
+
+void _cd(char * line)
+{
+char **tab;
+char *cwd = getcwd(NULL, 0);
+int result;
+
+tab = strtow(line, " ");
+
+if (tab[1] != NULL)
+{
+	if ((_strcmp(tab[1], "-")) == 0)
+	{
+
+	}
+	else
+	{
+		result = chdir((const char *)tab[1]);
+		if (result == -1)
+			perror("cd");
+	}
+}
+else
+{
+
+}
+
+
+free(tab);
+free(cwd);
+}
