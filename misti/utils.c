@@ -108,3 +108,28 @@ if (f == 0)
 
 return (n);
 }
+
+/**
+* getenv - gets the value of the environment variable
+* @env_var: environment variable to value of
+*
+* Return: value of environment variable
+*/
+
+char *_getenv(const char *env_var)
+{
+	extern char **environ;
+	int i = 0;
+	char **tab, *var, *val;
+
+	while (environ[i])
+	{
+		tab = strtow(environ[i], "=");
+		val = tab[1];
+		var = tab[0];
+		if (_strcmp(env_var, var) == 0 )
+			return(val);
+		i++;
+	}
+	return (NULL);
+}

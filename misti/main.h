@@ -31,5 +31,6 @@ void _cd(char * line);
 int handle_builtin(char *line);
 char *built_picker(char *line, const char *delimiter);
 int _atoi(char *s);
+char *_getenv(const char *env_var);
 
 #endif

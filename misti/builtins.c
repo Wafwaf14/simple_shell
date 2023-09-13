@@ -49,19 +49,25 @@ else
 * Return: void
 */
 
-void _cd(char * line)
+void _cd(char *line)
 {
-char **tab;
-char *cwd = getcwd(NULL, 0);
+char **tab, *old_var = "OLDPWD";
+char *cur_cwd, *cwd = getcwd(NULL, 0);
+char *prev_cwd = _getenv("OLDPWD");
 int result;
+char *env_var = "PWD", *home = _getenv("HOME");
 
+if ((setenv(old_var, cwd, 1)) == -1)
+	perror("setenv");
 tab = strtow(line, " ");
 
 if (tab[1] != NULL)
 {
 	if ((_strcmp(tab[1], "-")) == 0)
 	{
-
+		result = chdir((const char *)prev_cwd);
+		if (result == -1)
+			perror("cd");
 	}
 	else
 	{
@@ -72,10 +78,16 @@ if (tab[1] != NULL)
 }
 else
 {
-
+	result = chdir((const char *)home);
+	if (result == -1)
+		perror("cd");
 }
 
+cur_cwd = getcwd(NULL, 0);
+if ((setenv(env_var, cur_cwd, 1)) == -1)
+	perror("setenv");
 
 free(tab);
+free(cur_cwd);
 free(cwd);
 }

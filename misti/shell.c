@@ -11,11 +11,13 @@ int main(void)
 char *line, *command, **argv;
 size_t len, word_num;
 ssize_t nread;
+char *pwd;
 
 len = word_num = 0;
 while (true)
 {
-	printf("$ ");
+	pwd = _getenv("PWD");
+	printf("misti+wafwaf@ubuntu:~%s$ ", pwd);
 	nread = getline(&line, &len, stdin);
 	if (nread == -1 || line == NULL)
 	{
@@ -38,6 +40,7 @@ while (true)
 		else
 			argv[0] = command, child_pr(argv);
 	}
+
 }
 return (0);
 }
