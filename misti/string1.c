@@ -85,3 +85,25 @@ for (i = 0 ; *s != '\0' ; i++)
 
 return (i);
 }
+
+/**
+* handle_empty_string
+* @line: pointer to string under investigation
+*
+* Return: 0 if valid string and -1 if empty string
+*/
+
+int handle_empty_string(char *line)
+{
+int i = 0;
+char *space = " ";
+
+while (line[i])
+{
+	if (line[i] != *space)
+		return (0);
+	i++;
+}
+
+return (-1);
+}

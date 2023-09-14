@@ -1,9 +1,11 @@
 #include "main.h"
 
 /**
-* main - Simple shell 0.4
+* main - Simple shell 1.0
 *
 * Return: 0
+*
+* Description: Handles exit, cd, comments
 */
 
 int main(void)
@@ -22,11 +24,16 @@ while (true)
 	if (nread == -1 || line == NULL)
 	{
 		printf("\n");
-		break;
+		continue;
 	}
 	line[nread - 1] = '\0';
 	if (nread < 0)
-		break;
+		continue;
+	if ((handle_empty_string(line)) == -1)
+		continue;
+	line = hash_filter(line);
+	if (line == NULL)
+		continue;
 	if (handle_builtin(line) == 0)
 		continue;
 	else
@@ -40,6 +47,7 @@ while (true)
 		else
 			argv[0] = command, child_pr(argv);
 	}
+	free(line);
 
 }
 return (0);

@@ -133,3 +133,53 @@ char *_getenv(const char *env_var)
 	}
 	return (NULL);
 }
+
+/**
+* hash_filter
+* @line: pointer to line with hash comment
+*
+* Return: pointer to unhashed line or NULL on failure
+* or line if hash is not present
+*/
+
+char *hash_filter(char *line)
+{
+char *unhashed, *hash = "#", *space = " ";
+int flag, count, i;
+
+i = count = flag = 0;
+while (line[i] == *space)
+	i++;
+
+count = i;
+while (line[i])
+{
+	if (line[i] == *hash)
+	{
+		flag = 1;
+		break;
+	}
+	i++;
+}
+
+if (flag == 1)
+{
+	unhashed = malloc(sizeof(char) * (i - 1));
+	if (unhashed == NULL)
+		return (NULL);
+
+	if (count == i)
+		return (NULL);
+	while (count < i)
+	{
+		unhashed[count] = line[count];
+		count++;
+	}
+}
+else
+{
+	return (line);
+}
+
+return (unhashed);
+}

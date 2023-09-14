@@ -10,6 +10,7 @@
 
 /****** MAIN OPERATIONS **********/
 void child_pr(char **argv);
+char *hash_filter(char *line);
 
 /**** STRING HANDLING FUNCTIONS ******/
 int _strlen(char *s);
@@ -20,6 +21,7 @@ char *copy_word(char *str, int start, int end);
 char **strtow(char *str, const char *delimiter);
 int _strcmp(const char *str1, const char *str2);
 int _strlen_const(const char *s);
+int handle_empty_string(char *line);
 
 /***** HANDLING THE PATH *****/
 char *find_path(char *command);
