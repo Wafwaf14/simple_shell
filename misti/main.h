@@ -7,6 +7,8 @@
 #include <sys/wait.h>
 #include <stdbool.h>
 #include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
 
 /****** MAIN OPERATIONS **********/
 void child_pr(char **argv);
@@ -34,5 +36,8 @@ int handle_builtin(char *line);
 char *built_picker(char *line, const char *delimiter);
 int _atoi(char *s);
 char *_getenv(const char *env_var);
+
+/******* HANDLING A FILE WITH COMMANDS ********/
+int handle_file(char *filen);
 
 #endif

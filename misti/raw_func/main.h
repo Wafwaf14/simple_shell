@@ -7,11 +7,10 @@
 #include <sys/wait.h>
 #include <stdbool.h>
 #include <sys/stat.h>
-#include <string.h>
+#include <fcntl.h>
+#include <errno.h>
 
-/**** BUILTIN COMMANDS *****/
-void envir(void);
-int handle_builtin(char *line);
-char *built_picker(char *line, const char *delimiter);
+/******* HANDLING A FILE WITH COMMANDS ********/
+int handle_file(char *filen);
 
 #endif

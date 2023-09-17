@@ -1,0 +1,7 @@
+ls -la # idf
+ls # ls -s
+            ls -o
+pwd
+echo hello world
+echo "hello world"
+echo 'hellow world'
