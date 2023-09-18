@@ -152,7 +152,7 @@ if (remove(bash_alias) != 0)
 	perror("remove");
 	return;
 }
-if (rename("temp", bash_alias) != 0)
+if (rename("~/temp", bash_alias) != 0)
 {
 	perror("rename");
 	return;
