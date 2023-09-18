@@ -40,7 +40,7 @@ return (dest);
 * Return: integer
 */
 
-int check_alias_name(const char *bash_alias, char *strin, char *value)
+int check_alias_name(const char *bash_alias, char *strin, char *value, char *pwd)
 {
 int fd, fc, i, nread, flag = 0;
 char *string, **split, *string2, **split2;
@@ -82,7 +82,7 @@ while (split[i] != NULL)
 	if ((_strcmp((const char *)split2[0], (const char *)strin)) == 0)
 	{
 		flag = 1;
-		change_alias_value(bash_alias, string, strin, value);
+		change_alias_value(bash_alias, string, strin, value, pwd);
 		break;
 	}
 	i++;
@@ -105,12 +105,12 @@ return (0);
 * Return: integer
 */
 
-void change_alias_value(const char *bash_alias, char *str, char *name, char *value)
+void change_alias_value(const char *bash_alias, char *str, char *name, char *value, char *pwd)
 {
 int fd, i, nwrite;
 char **split, *str2, **split2;
 char *equal = "=", *newline = "\n";
-
+char *temp = pwd;
 fd = open ("temp", O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 if (fd == -1)
 	return;
@@ -152,9 +152,10 @@ if (remove(bash_alias) != 0)
 	perror("remove");
 	return;
 }
-if (rename("~/temp", bash_alias) != 0)
+if (rename(temp, bash_alias) != 0)
 {
-	perror("rename");
-	return;
+        perror("rename");
+        return;
 }
 }
+

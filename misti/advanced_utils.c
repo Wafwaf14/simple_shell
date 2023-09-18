@@ -151,14 +151,14 @@ if (flag == 0)
 * Return: suitable integer
 */
 
-int add_alias(char *str, const char *bash_alias)
+int add_alias(char *str, const char *bash_alias, char *pwd)
 {
 int fd, fw, fc, status;
 size_t len;
 char **tab;
 
 tab = strtow(str, "=");
-status = check_alias_name(bash_alias, tab[0], tab[1]);
+status = check_alias_name(bash_alias, tab[0], tab[1], pwd);
 fd = open (bash_alias, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 if (fd == -1)
 	return (-1);
@@ -186,14 +186,24 @@ return (1);
 * Return: void
 */
 
-void _alias(char **tab)
+void _alias(char **tab, char *pwd)
 {
 int i;
-char *liase;
-
+char *liase, *bash = "/bash_alias";
+const char *bash_alias;
+char *temp = malloc(_strlen(pwd) + _strlen(bash) + 1);
+if (temp == NULL)
+{
+	perror("malloc");
+	return;
+}
+_strcpy(temp, pwd);
+_strcat(temp, bash);
+bash_alias = (const char *)temp;
+printf("%s\n", bash_alias);
 i = 1;
 if (tab[1] == NULL)
-	print_alias_all("bash_alias");
+	print_alias_all(bash_alias);
 
 else
 {
@@ -201,9 +211,9 @@ else
 	{
 		liase = tab[i];
 		if ((alias_char_finder(liase)) == 1)
-			print_alias_name("bash_alias", liase);
+			print_alias_name(bash_alias, liase);
 		if ((alias_char_finder(liase)) == 2)
-			add_alias(liase, "bash_alias");
+			add_alias(liase, bash_alias, pwd);
 		if ((alias_char_finder(liase)) == 0)
 			continue;
 		i++;

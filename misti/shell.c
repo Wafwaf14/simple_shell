@@ -15,8 +15,9 @@ int main(int __attribute__((unused)) ac, char __attribute__((unused)) **av)
 char *line, *command, **argv;
 size_t len, word_num;
 ssize_t nread;
-char *pwd;
+char *pwd, *pwd1;
 
+pwd1 = _getenv("PWD");
 len = word_num = 0;
 if (av[1] == NULL)
 {
@@ -40,7 +41,7 @@ if (av[1] == NULL)
 			continue;
 		if (handle_builtin(line) == 0)
 			continue;
-		if (handle_alias(line) == 1)
+		if (handle_alias(line, pwd1) == 1)
 			continue;
 		else
 		{
@@ -59,6 +60,6 @@ if (av[1] == NULL)
 }
 else
 	handle_file(av[1]);
-
+delete_file(pwd1);
 return (0);
 }

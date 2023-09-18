@@ -99,7 +99,7 @@ free(cwd);
 * Return: suitable integer
 */
 
-int handle_alias(char *line)
+int handle_alias(char *line, char *pwd)
 {
 char **tabs;
 
@@ -110,7 +110,7 @@ tabs = strtow(line, " ");
 
 if ((_strcmp((const char *)tabs[0], "alias")) == 0)
 {
-	_alias(tabs);
+	_alias(tabs, pwd);
 	return (1);
 }
 
