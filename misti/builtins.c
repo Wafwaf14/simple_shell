@@ -91,3 +91,28 @@ free(tab);
 free(cur_cwd);
 free(cwd);
 }
+
+/**
+* handle_alias - grouping aliases
+* @line: pointer to line from stdin
+*
+* Return: suitable integer
+*/
+
+int handle_alias(char *line)
+{
+char **tabs;
+
+if (line == NULL)
+	return (0);
+
+tabs = strtow(line, " ");
+
+if ((_strcmp((const char *)tabs[0], "alias")) == 0)
+{
+	_alias(tabs);
+	return (1);
+}
+
+return (0);
+}

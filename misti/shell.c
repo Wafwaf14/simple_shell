@@ -15,7 +15,7 @@ int main(int __attribute__((unused)) ac, char __attribute__((unused)) **av)
 char *line, *command, **argv;
 size_t len, word_num;
 ssize_t nread;
-char *pwd;
+char *pwd, *bash_alias = "bash_alias";
 
 len = word_num = 0;
 if (av[1] == NULL)
@@ -40,6 +40,8 @@ if (av[1] == NULL)
 			continue;
 		if (handle_builtin(line) == 0)
 			continue;
+		if (handle_alias(line) == 1)
+			continue;
 		else
 		{
 			word_num = count_words(line, " ");
@@ -54,8 +56,10 @@ if (av[1] == NULL)
 		free(line);
 
 	}
+
 }
 else
 	handle_file(av[1]);
+remove(bash_alias);
 return (0);
 }

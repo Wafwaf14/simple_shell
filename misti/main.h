@@ -10,9 +10,24 @@
 #include <fcntl.h>
 #include <errno.h>
 
+/**
+ * struct list_s - singly linked list
+ * @str: string - (malloc'ed string)
+ * @len: length of the string
+ * @next: points to the next node
+ *
+ * Description: singly linked list node structure
+ */
+typedef struct list_s
+{
+	char *str;
+	struct list_s *next;
+} list_t;
+
 /****** MAIN OPERATIONS **********/
 void child_pr(char **argv);
 char *hash_filter(char *line);
+void delete_file(char *bash_alias);
 
 /**** STRING HANDLING FUNCTIONS ******/
 int _strlen(char *s);
@@ -24,6 +39,7 @@ char **strtow(char *str, const char *delimiter);
 int _strcmp(const char *str1, const char *str2);
 int _strlen_const(const char *s);
 int handle_empty_string(char *line);
+char *_strcpy_const(char *dest, const char *src);
 
 /***** HANDLING THE PATH *****/
 char *find_path(char *command);
@@ -39,5 +55,13 @@ char *_getenv(const char *env_var);
 
 /******* HANDLING A FILE WITH COMMANDS ********/
 int handle_file(char *filen);
+
+/***** HANDLING ALIAS ******/
+int handle_alias(char *line);
+void _alias(char **tab);
+int add_alias(char *str, char *bash_alias);
+void print_alias_name(const list_t *h, char *name);
+int print_alias_all(char *bash_alias);
+int alias_char_finder(char *lias);
 
 #endif
