@@ -63,12 +63,12 @@ return (0);
 * Return: integer
 */
 
-int print_alias_all(char *bash_alias)
+int print_alias_all(const char *bash_alias)
 {
-int fd, fw, fc, flag;
+int fd, fw, fc;
 ssize_t count;
-char ch, *newline = "\n";
-count = flag = 0;
+char ch;
+count = 0;
 
 fd = open(bash_alias, O_RDONLY);
 if (fd == -1)
@@ -79,16 +79,6 @@ while (((read(fd, &ch, 1)) > 0))
 	fw = write(STDOUT_FILENO, &ch, 1);
 	if (fw != 1)
 		return (0);
-	if (ch == '\'' && flag == 0)
-	{
-		flag = 1;
-		continue;
-	}
-	if (ch == '\'' && flag == 1)
-	{
-		flag = 0;
-		write(STDOUT_FILENO, newline, 1);
-	}
 	count++;
 }
 
@@ -107,29 +97,51 @@ return (1);
 * Return: void
 */
 
-void print_alias_name(const list_t *h, char *name)
+void print_alias_name(const char *bash_alias, char *name)
 {
-const list_t *current;
-char *string;
-char **split;
+int fd, fc, i, nread, flag = 0;
+char *string, **split, *string2, **split2;
+struct stat file_info;
 
-if (h == NULL)
-	return;
-
-current = h;
-while (current != NULL)
+fd = open(bash_alias, O_RDONLY);
+if (fd == -1)
+	perror("open");
+if (fstat(fd, &file_info) < 0)
 {
-	string = current->str;
-	split = strtow(string, "=");
-	if ((_strcmp((const char *)split[0], (const char *)name)) == 0)
-	{
-		printf("%s\n", current->str);
-		return;
-	}
-	current = current->next;
+	close(fd);
+	perror("fstat");
 }
+string = malloc(file_info.st_size + 1);
+if (string == NULL)
+{
+	close(fd);
+	perror("malloc");
+}
+nread = read(fd, string, file_info.st_size);
+if (nread == -1)
+	perror("read");
+fc = close(fd);
+if (fc == -1)
+	perror("close");
 
-perror("alias");
+split = strtow(string, "\n");
+
+i = 0;
+while (split[i] != NULL)
+{
+	string2 = split[i];
+	split2 = strtow(string2, "=");
+	if ((_strcmp((const char *)split2[0], (const char *)name)) == 0)
+	{
+		flag = 1;
+		printf("%s\n", string2);
+		break;
+	}
+	i++;
+}
+if (flag == 0)
+	printf("%s: no such alias\n", name);
+
 }
 
 /**
@@ -139,16 +151,18 @@ perror("alias");
 * Return: suitable integer
 */
 
-int add_alias(char *str, char *bash_alias)
+int add_alias(char *str, const char *bash_alias)
 {
 int fd, fw, fc;
 size_t len;
 
-fd = open(bash_alias, O_WRONLY | O_APPEND | O_CREAT, 0666);
+fd = open (bash_alias, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 if (fd == -1)
 	return (-1);
 
 len = _strlen(str);
+str[len] = '\n';
+len++;
 fw = write(fd, str, len);
 if (fw == -1)
 	return (-1);
@@ -169,18 +183,18 @@ return (1);
 void _alias(char **tab)
 {
 int i;
-char *bash_alias = "bash_alias", *liase;
+char *liase;
 
 i = 1;
 if (tab[1] == NULL)
-	print_alias_all(bash_alias);
+	print_alias_all("bash_alias");
 
 else
 {
 	while (tab[i] != NULL)
 	{
 		liase = tab[i];
-		add_alias(liase, bash_alias);
+		print_alias_name("bash_alias", liase);
 		i++;
 	}
 }

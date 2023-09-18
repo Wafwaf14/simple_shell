@@ -15,7 +15,7 @@ int main(int __attribute__((unused)) ac, char __attribute__((unused)) **av)
 char *line, *command, **argv;
 size_t len, word_num;
 ssize_t nread;
-char *pwd, *bash_alias = "bash_alias";
+char *pwd;
 
 len = word_num = 0;
 if (av[1] == NULL)
@@ -53,13 +53,12 @@ if (av[1] == NULL)
 			else
 				argv[0] = command, child_pr(argv);
 		}
-		free(line);
 
 	}
 
 }
 else
 	handle_file(av[1]);
-remove(bash_alias);
+
 return (0);
 }

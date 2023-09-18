@@ -27,7 +27,7 @@ typedef struct list_s
 /****** MAIN OPERATIONS **********/
 void child_pr(char **argv);
 char *hash_filter(char *line);
-void delete_file(char *bash_alias);
+void delete_file(void) __attribute__((destructor));
 
 /**** STRING HANDLING FUNCTIONS ******/
 int _strlen(char *s);
@@ -59,9 +59,9 @@ int handle_file(char *filen);
 /***** HANDLING ALIAS ******/
 int handle_alias(char *line);
 void _alias(char **tab);
-int add_alias(char *str, char *bash_alias);
-void print_alias_name(const list_t *h, char *name);
-int print_alias_all(char *bash_alias);
+int add_alias(char *str, const char *bash_alias);
+void print_alias_name(const char *bash_alias, char *name);
+int print_alias_all(const char *bash_alias);
 int alias_char_finder(char *lias);
 
 #endif
