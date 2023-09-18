@@ -153,9 +153,12 @@ if (flag == 0)
 
 int add_alias(char *str, const char *bash_alias)
 {
-int fd, fw, fc;
+int fd, fw, fc, status;
 size_t len;
+char **tab;
 
+tab = strtow(str, "=");
+status = check_alias_name(bash_alias, tab[0], tab[1]);
 fd = open (bash_alias, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 if (fd == -1)
 	return (-1);
@@ -163,12 +166,15 @@ if (fd == -1)
 len = _strlen(str);
 str[len] = '\n';
 len++;
-fw = write(fd, str, len);
-if (fw == -1)
-	return (-1);
-fc = close(fd);
-if (fc == -1)
-	return (-1);
+if (status == 1)
+{
+	fw = write(fd, str, len);
+	if (fw == -1)
+		return (-1);
+	fc = close(fd);
+	if (fc == -1)
+		return (-1);
+}
 
 return (1);
 }
