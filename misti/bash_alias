@@ -1,0 +1,4 @@
+ll=‘ls -l’
+rm=‘rm -i’
+mv=‘mv -i’
+du=‘du -h’

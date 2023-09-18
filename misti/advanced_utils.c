@@ -194,7 +194,12 @@ else
 	while (tab[i] != NULL)
 	{
 		liase = tab[i];
-		print_alias_name("bash_alias", liase);
+		if ((alias_char_finder(liase)) == 1)
+			print_alias_name("bash_alias", liase);
+		if ((alias_char_finder(liase)) == 2)
+			add_alias(liase, "bash_alias");
+		if ((alias_char_finder(liase)) == 0)
+			continue;
 		i++;
 	}
 }

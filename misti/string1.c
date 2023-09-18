@@ -118,41 +118,42 @@ return (-1);
 
 int alias_char_finder(char *lias)
 {
-int i = 0, flag = 0, len;
-char *equal = "=";
-char *apostro = "'";
-char *liase = NULL;
+int i = 0, flag = 0;
+char *apostro = "'", *space = " ";
+char *liase = NULL, **tab;
 
-len = _strlen(lias);
-liase = malloc((len + 1) * sizeof(char));
-liase = copy_word(lias, 0, (len - 1));
-
-while (liase[i] != '\0')
+tab = strtow(lias, "=");
+if (tab[0] != NULL && (tab[1] == NULL || tab[1] == space))
+	return (1);
+else if (tab[1] != NULL)
 {
-	if (liase[i] == *equal)
+	liase = tab[1];
+	while (liase[i])
 	{
-		flag = 1;
-		continue;
+		if (liase[i] == *apostro)
+		{
+			flag = 1;
+			continue;
+		}
+		if (liase[i] == *apostro && flag == 1)
+		{
+			flag = 2;
+			continue;
+		}
+		if (flag == 2 && liase[i + 1] != '\0')
+		{
+			flag = 1;
+			continue;
+		}
 	}
-	if (liase[i] == *apostro && flag == 1)
-	{
-		flag = 2;
-		continue;
-	}
-	if (liase[i] == *apostro && flag == 2)
-	{
-		flag = 3;
-		break;
-	}
-	i++;
 }
 
 if (flag == 0)
 	return (1); /** print values rather than assign */
 
-if (flag == 3)
+if (flag == 2)
 	return (2); /** assign values */
 
-free(liase);
+free(tab), free(liase);
 return (0); /** don't proceed. unterminated value */
 }
