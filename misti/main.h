@@ -63,5 +63,7 @@ int add_alias(char *str, const char *bash_alias);
 void print_alias_name(const char *bash_alias, char *name);
 int print_alias_all(const char *bash_alias);
 int alias_char_finder(char *lias);
+void change_alias_value(const char *bash_alias, char *str, char *name, char *value);
+int check_alias_name(const char *bash_alias, char *strin, char *value);
 
 #endif
