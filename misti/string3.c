@@ -110,7 +110,19 @@ void change_alias_value(const char *bash_alias, char *str, char *name, char *val
 int fd, i, nwrite;
 char **split, *str2, **split2;
 char *equal = "=", *newline = "\n";
-char *temp = pwd;
+char *temps = "/temp";
+const char *tempsi;
+
+char *temp = malloc(_strlen(pwd) + _strlen(temps) + 1);
+if (temp == NULL)
+{
+	perror("malloc");
+	return;
+}
+_strcpy(temp, pwd);
+_strcat(temp, temps);
+tempsi = (const char *)temp;
+printf("%s\n", tempsi);
 fd = open ("temp", O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 if (fd == -1)
 	return;
