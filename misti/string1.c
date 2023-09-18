@@ -123,37 +123,41 @@ char *apostro = "'", *space = " ";
 char *liase = NULL, **tab;
 
 tab = strtow(lias, "=");
-if (tab[0] != NULL && (tab[1] == NULL || tab[1] == space))
+if (tab == NULL)
+	return (0);
+
+if (tab[0] == NULL || tab[0] == space)
+	return (0);
+
+if (tab[1] == NULL || tab[1] == space)
 	return (1);
-else if (tab[1] != NULL)
+
+liase = tab[1];
+while (liase[i])
 {
-	liase = tab[1];
-	while (liase[i])
+	if (liase [i] == *apostro)
 	{
-		if (liase[i] == *apostro)
+		if (i > 0 && liase[i - 1] == '\\')
 		{
-			flag = 1;
+			i++;
 			continue;
 		}
-		if (liase[i] == *apostro && flag == 1)
+		else
 		{
-			flag = 2;
-			continue;
-		}
-		if (flag == 2 && liase[i + 1] != '\0')
-		{
-			flag = 1;
+			flag = !flag;
+			i++;
 			continue;
 		}
 	}
+	i++;
 }
 
 if (flag == 0)
-	return (1); /** print values rather than assign */
+	return (2);
 
-if (flag == 2)
-	return (2); /** assign values */
+for (i = 0; tab[i]; i++)
+	free(tab[i]);
+free(tab);
 
-free(tab), free(liase);
 return (0); /** don't proceed. unterminated value */
 }
