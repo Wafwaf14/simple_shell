@@ -28,6 +28,7 @@ typedef struct list_s
 void child_pr(char **argv);
 char *hash_filter(char *line);
 int delete_file(char *pwd);
+int delete_file(char *pwd);
 int exec(char *line);
 
 /**** STRING HANDLING FUNCTIONS ******/
