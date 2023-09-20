@@ -28,6 +28,7 @@ if (av[1] == NULL)
 		{
 			if (errno == EAGAIN || errno == EWOULDBLOCK)
 				break;
+			printf("\n");
 			break; }
 		line[nread - 1] = '\0';
 		if (nread < 0)
