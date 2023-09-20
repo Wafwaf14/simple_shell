@@ -143,9 +143,11 @@ char *_getenv(const char *env_var)
 			free(val);
 			return (result);
 		}
-		free(var), free(val), free(tab);
+		free(var), free(val);
+		free(tab);
 		i++;
 	}
+	free(tab);
 	return (NULL);
 }
 

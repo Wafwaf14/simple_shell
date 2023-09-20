@@ -26,7 +26,7 @@ if (commando == NULL)
 	perror("/shell");
 	return (-1); }
 else
-	argv[0] = commando, child_pr(argv);
+	argv[0] = commando, child_pr(argv, commando, word_num);
 
 for (j = 0; j < word_num; j++)
 	free(argv[j]);

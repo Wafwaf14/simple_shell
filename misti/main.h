@@ -25,7 +25,7 @@ typedef struct list_s
 } list_t;
 
 /****** MAIN OPERATIONS **********/
-void child_pr(char **argv);
+void child_pr(char **argv, char *commando, int word_num);
 char *hash_filter(char *line);
 int delete_file(char *pwd);
 int exec(char *line);

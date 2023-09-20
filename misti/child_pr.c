@@ -8,14 +8,18 @@
 * Return: void
 */
 
-void child_pr(char **argv)
+void child_pr(char **argv, char *commando, int word_num)
 {
 pid_t child;
 int status;
+int j;
 
 child = fork();
 if (child == -1)
 {
+	free(commando);
+	for (j = 0; j < word_num; j++)
+		free(argv[j]);
 	perror("./shell");
 	exit(0);
 }
@@ -23,6 +27,10 @@ if (child == 0)
 {
 	if (execve(argv[0], argv, NULL) == -1)
 	{
+		free(commando);
+		for (j = 0; j < word_num; j++)
+			free(argv[j]);
+		free(argv);
 		perror("./shell");
 		exit(0);
 	}
