@@ -46,6 +46,8 @@ if (av[1] == NULL)
 }
 else
 	handle_file(av[1]);
-free(line), free(unhashed), delete_file(pwd1);
+free(line), free(unhashed);
+delete_file(pwd1);
+free(pwd1);
 return (0);
 }

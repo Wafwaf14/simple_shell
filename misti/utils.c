@@ -125,7 +125,7 @@ return (n);
 char *_getenv(const char *env_var)
 {
 	int i = 0;
-	char **tab, *var, *val;
+	char **tab, *var, *val, *result;
 
 	while (environ[i])
 	{
@@ -136,7 +136,12 @@ char *_getenv(const char *env_var)
 		{
 			free(var);
 			free(tab);
-			return (val);
+			result = malloc(_strlen(val) + 1);
+			if (result == NULL)
+				return (NULL);
+			_strcpy(result, val);
+			free(val);
+			return (result);
 		}
 		free(var), free(val), free(tab);
 		i++;
