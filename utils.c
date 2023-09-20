@@ -50,16 +50,19 @@ const char *builtin = (const char *)built_picker(line, " ");
 if (_strcmp(builtin, "env") == 0)
 {
 	envir();
+	free((char *)builtin);
 	return (0);
 }
 else if (_strcmp(builtin, "exit") == 0)
 {
 	exit_status(line);
+	free((char *)builtin);
 	return (0);
 }
 else if (_strcmp(builtin, "cd") == 0)
 {
 	_cd(line);
+	free((char *)builtin);
 	return (0);
 }
 
@@ -130,7 +133,12 @@ char *_getenv(const char *env_var)
 		val = tab[1];
 		var = tab[0];
 		if (_strcmp(env_var, var) == 0)
+		{
+			free(var);
+			free(tab);
 			return (val);
+		}
+		free(var), free(val), free(tab);
 		i++;
 	}
 	return (NULL);

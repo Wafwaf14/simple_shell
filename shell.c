@@ -12,7 +12,7 @@
 
 int main(int __attribute__((unused)) ac, char __attribute__((unused)) **av)
 {
-char *line;
+char *line = NULL, *unhashed;
 size_t len = 0;
 ssize_t nread;
 char *pwd1 = _getenv("PWD");
@@ -35,19 +35,17 @@ if (av[1] == NULL)
 			continue;
 		if ((handle_empty_string(line)) == -1)
 			continue;
-		line = hash_filter(line);
-		if (line == NULL)
+		unhashed = hash_filter(line);
+		if (unhashed == NULL)
 			continue;
-		if (handle_builtin(line) == 0)
-			continue;
-		if (handle_alias(line, pwd1) == 1)
+		if (handle_builtin(unhashed) == 0)
 			continue;
 		else
-			exec(line); }
+			exec(unhashed); }
 
 }
 else
 	handle_file(av[1]);
-delete_file(pwd1);
+free(line), free(unhashed), delete_file(pwd1);
 return (0);
 }

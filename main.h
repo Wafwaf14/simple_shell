@@ -28,7 +28,7 @@ typedef struct list_s
 void child_pr(char **argv);
 char *hash_filter(char *line);
 int delete_file(char *pwd) __attribute__((destructor));
-void exec(char *line);
+int exec(char *line);
 
 /**** STRING HANDLING FUNCTIONS ******/
 int _strlen(char *s);
@@ -47,7 +47,7 @@ char *find_path(char *command);
 
 /**** BUILTIN COMMANDS *****/
 void envir(void);
-void exit_status(char *line);
+int exit_status(char *line);
 void _cd(char *line);
 int handle_builtin(char *line);
 char *built_picker(char *line, const char *delimiter);
