@@ -27,7 +27,7 @@ if (av[1] == NULL)
 		if (nread == -1 || line == NULL)
 		{
 			printf("\n");
-			continue;
+			break;
 		}
 		line[nread - 1] = '\0';
 		if (nread < 0)
