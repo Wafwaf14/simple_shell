@@ -15,20 +15,20 @@ int main(int __attribute__((unused)) ac, char __attribute__((unused)) **av)
 char *line;
 size_t len = 0;
 ssize_t nread;
-char *pwd, *pwd1 = _getenv("PWD");
+char *pwd1 = _getenv("PWD");
 
 if (av[1] == NULL)
 {
 	while (true)
 	{
-		pwd = _getenv("PWD");
-		printf("misti+wafwaf@ubuntu:~%s$ ", pwd);
+		if (isatty(STDIN_FILENO))
+			printf("$ ");
 		nread = getline(&line, &len, stdin);
 		if (nread == -1 || line == NULL)
 		{
-			printf("\n");
-			break;
-		}
+			if (errno == EAGAIN || errno == EWOULDBLOCK)
+				break;
+			break; }
 		line[nread - 1] = '\0';
 		if (nread < 0)
 			continue;
@@ -42,9 +42,7 @@ if (av[1] == NULL)
 		if (handle_alias(line, pwd1) == 1)
 			continue;
 		else
-			exec(line);
-
-	}
+			exec(line); }
 
 }
 else
