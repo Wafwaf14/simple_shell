@@ -12,13 +12,11 @@
 
 int main(int __attribute__((unused)) ac, char __attribute__((unused)) **av)
 {
-char *line, *command, **argv;
-size_t len, word_num;
+char *line;
+size_t len = 0;
 ssize_t nread;
-char *pwd, *pwd1;
+char *pwd, *pwd1 = _getenv("PWD");
 
-pwd1 = _getenv("PWD");
-len = word_num = 0;
 if (av[1] == NULL)
 {
 	while (true)
@@ -44,16 +42,7 @@ if (av[1] == NULL)
 		if (handle_alias(line, pwd1) == 1)
 			continue;
 		else
-		{
-			word_num = count_words(line, " ");
-			argv = malloc((word_num + 1) * sizeof(char *));
-			argv = strtow(line, " ");
-			command = find_path(argv[0]);
-			if (command == NULL)
-				perror("/shell");
-			else
-				argv[0] = command, child_pr(argv);
-		}
+			exec(line);
 
 	}
 

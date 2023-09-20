@@ -87,7 +87,7 @@ return (i);
 }
 
 /**
-* handle_empty_string
+* handle_empty_string - checking if a string is empty
 * @line: pointer to string under investigation
 *
 * Return: 0 if valid string and -1 if empty string
@@ -151,10 +151,8 @@ while (liase[i])
 	}
 	i++;
 }
-
 if (flag == 0)
 	return (2);
-
 for (i = 0; tab[i]; i++)
 	free(tab[i]);
 free(tab);

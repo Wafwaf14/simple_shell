@@ -10,6 +10,7 @@
 #include <fcntl.h>
 #include <errno.h>
 
+extern char **environ;
 /**
  * struct list_s - singly linked list
  * @str: string - (malloc'ed string)
@@ -27,7 +28,8 @@ typedef struct list_s
 /****** MAIN OPERATIONS **********/
 void child_pr(char **argv);
 char *hash_filter(char *line);
-void delete_file(char *pwd) __attribute__((destructor));
+int delete_file(char *pwd) __attribute__((destructor));
+void exec(char *line);
 
 /**** STRING HANDLING FUNCTIONS ******/
 int _strlen(char *s);
@@ -58,12 +60,13 @@ int handle_file(char *filen);
 
 /***** HANDLING ALIAS ******/
 int handle_alias(char *line, char *pwd);
-void _alias(char **tab, char *pwd);
+int _alias(char **tab, char *pwd);
 int add_alias(char *str, const char *bash_alias, char *pwd);
 void print_alias_name(const char *bash_alias, char *name);
 int print_alias_all(const char *bash_alias);
 int alias_char_finder(char *lias);
-void change_alias_value(const char *bash_alias, char *str, char *name, char *value, char *pwd);
+int change_alias_value(const char *bash_alias, char *str, char *name, char *value, char *pwd);
 int check_alias_name(const char *bash_alias, char *strin, char *value, char *pwd);
+int replace_bash(int fd, const char *tempsi, const char *bash_alias);
 
 #endif

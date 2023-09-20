@@ -118,7 +118,6 @@ return (n);
 
 char *_getenv(const char *env_var)
 {
-	extern char **environ;
 	int i = 0;
 	char **tab, *var, *val;
 

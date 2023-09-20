@@ -8,7 +8,6 @@
 
 void envir(void)
 {
-extern char **environ;
 int i = 0;
 while (environ[i])
 {
@@ -95,6 +94,7 @@ free(cwd);
 /**
 * handle_alias - grouping aliases
 * @line: pointer to line from stdin
+* @pwd: pointer to working directory with the bash_alias file
 *
 * Return: suitable integer
 */

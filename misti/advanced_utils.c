@@ -9,8 +9,8 @@
 
 int handle_file(char *filen)
 {
-int i, fd, fc, nread, word_num;
-char *file, **line, **argv, *command, *liner;
+int i, fd, fc, nread;
+char *file, **line, *liner;
 struct stat file_info;
 
 fd = open(filen, O_RDONLY);
@@ -42,23 +42,16 @@ while (line[i] != NULL)
 	liner = hash_filter(line[i]);
 	if (liner == NULL)
 		continue;
-	word_num = count_words(liner, " ");
-	argv = malloc((word_num + 1) * sizeof(char *));
-	argv = strtow(liner, " ");
-	command = find_path(argv[0]);
-	if (command == NULL)
-		continue;
-	else
-		argv[0] = command, child_pr(argv);
+	exec(liner);
 	i++;
 }
-free(line), free(file), free(argv);
+free(line), free(file);
 return (0);
 }
 
 /**
 * print_alias_all - print all elements in an alias list
-* @h: pointer to list_t singly linked list
+* @bash_alias: pointer to location of bash_alias file
 *
 * Return: integer
 */
@@ -91,7 +84,7 @@ return (1);
 
 /**
 * print_alias_name - print the alais with that particular name
-* @h: pointer to list_t singly linked list
+* @bash_alias: pointer to location of bash_alias file
 * @name: name of alias to print
 *
 * Return: void
@@ -123,9 +116,7 @@ if (nread == -1)
 fc = close(fd);
 if (fc == -1)
 	perror("close");
-
 split = strtow(string, "\n");
-
 i = 0;
 while (split[i] != NULL)
 {
@@ -141,12 +132,13 @@ while (split[i] != NULL)
 }
 if (flag == 0)
 	printf("%s: no such alias\n", name);
-
 }
 
 /**
 * add_alias - adding alias at the end of a file
 * @str: pointer to string to append
+* @bash_alias: pointer to location of bash_alias file
+* @pwd: pointer to working directory with the bash_alias file
 *
 * Return: suitable integer
 */
@@ -159,7 +151,8 @@ char **tab;
 
 tab = strtow(str, "=");
 status = check_alias_name(bash_alias, tab[0], tab[1], pwd);
-fd = open (bash_alias, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
+fd = open(bash_alias, O_WRONLY | O_APPEND | O_CREAT,
+S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 if (fd == -1)
 	return (-1);
 
@@ -182,11 +175,12 @@ return (1);
 /**
 * _alias - adding, modifying and printing an alias(es)
 * @tab: pointer to pointers of alias
+* @pwd: pointer to working directory with the bash_alias file
 *
 * Return: void
 */
 
-void _alias(char **tab, char *pwd)
+int _alias(char **tab, char *pwd)
 {
 int i;
 char *liase, *bash = "/bash_alias";
@@ -195,7 +189,7 @@ char *temp = malloc(_strlen(pwd) + _strlen(bash) + 1);
 if (temp == NULL)
 {
 	perror("malloc");
-	return;
+	return (-1);
 }
 _strcpy(temp, pwd);
 _strcat(temp, bash);
@@ -219,5 +213,7 @@ else
 		i++;
 	}
 }
+
+return (0);
 }
 

@@ -114,7 +114,7 @@ int _strlen_const(const char *s)
 int i;
 for (i = 0 ; *s != '\0' ; i++)
 {
-        s++;
+	s++;
 }
 
 return (i);
@@ -123,7 +123,7 @@ return (i);
 /**
 * _strcmp - comparing two strings
 * @str1: first string
-* str2: second string
+* @str2: second string
 *
 * Return: 0 if successful or -1 on failure
 */
