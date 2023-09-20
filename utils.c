@@ -62,6 +62,8 @@ else if (_strcmp(builtin, "cd") == 0)
 	_cd(line);
 	return (0);
 }
+
+free((char *)builtin);
 return (-1);
 }
 
