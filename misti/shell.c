@@ -39,7 +39,9 @@ if (av[1] == NULL)
 		if (unhashed == NULL)
 			continue;
 		if (handle_builtin(unhashed) == 0)
-			continue;
+		{
+			free(unhashed);
+			continue; }
 		else
 			exec(unhashed); }
 

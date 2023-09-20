@@ -13,7 +13,6 @@ char *find_path(char *command)
 int j;
 struct stat st;
 char *file, *path, **tab, *dir, *full_path;
-
 if (command[0] != '/')
 {
 	file = command;
@@ -38,8 +37,7 @@ if (command[0] != '/')
 				free(command);
 				return (full_path); }
 		}
-		free(full_path), free(dir);
-	}
+		free(full_path), free(dir); }
 	free(tab);
 }
 else
@@ -48,10 +46,8 @@ else
 	if (stat(full_path, &st) == 0)
 	{
 		if (st.st_mode & S_IXUSR)
-			return (full_path);
-	}
+			return (full_path); }
 	free(full_path);
 }
-
 return (NULL);
 }

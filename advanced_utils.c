@@ -9,7 +9,7 @@
 
 int handle_file(char *filen)
 {
-int i, fd, fc, nread;
+int i = 0, fd, fc, nread, len;
 char *file, **line, *liner;
 struct stat file_info;
 
@@ -19,21 +19,23 @@ if (fd == -1)
 if (fstat(fd, &file_info) < 0)
 {
 	close(fd);
-	return (-1);
-}
+	return (-1); }
 file = malloc(file_info.st_size + 1);
 if (file == NULL)
 {
 	close(fd);
-	return (-1);
-}
+	return (-1); }
 nread = read(fd, file, file_info.st_size);
 if (nread == -1)
 	return (-1);
+file[nread] = '\0';
 fc = close(fd);
 if (fc == -1)
 	return (-1);
-i = 0;
+len = count_words(file, "\n");
+line = malloc((len + 1) * sizeof(char *));
+if (line == NULL)
+	return (-1);
 line = strtow(file, "\n");
 while (line[i] != NULL)
 {
@@ -42,10 +44,9 @@ while (line[i] != NULL)
 	liner = hash_filter(line[i]);
 	if (liner == NULL)
 		continue;
-	exec(liner);
-	i++;
-}
-free(line), free(file);
+	exec(liner), free(line[i]);
+	i++; }
+free(liner), free(line);
 return (0);
 }
 
