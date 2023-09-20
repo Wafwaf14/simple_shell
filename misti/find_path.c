@@ -14,15 +14,13 @@ int j;
 struct stat st;
 char *file, *path, **tab, *dir, *full_path;
 
-file = command;
-path = getenv("PATH");
-tab = strtow(path, ":");
-if (tab == NULL)
-{
-	return (NULL);
-}
 if (command[0] != '/')
 {
+	file = command;
+	path = _getenv("PATH");
+	tab = strtow(path, ":");
+	if (tab == NULL)
+		return (NULL);
 	for (j = 0; tab[j] != NULL; j++)
 	{
 		dir = tab[j];
@@ -32,9 +30,15 @@ if (command[0] != '/')
 		if (stat(full_path, &st) == 0)
 		{
 			if (st.st_mode & S_IXUSR)
-				return (full_path);
+			{
+				for (; tab[j] != NULL; j++)
+					free(tab[j]);
+				free(tab);
+				free(path);
+				free(command);
+				return (full_path); }
 		}
-		free(full_path);
+		free(full_path), free(dir);
 	}
 	free(tab);
 }
