@@ -40,8 +40,6 @@ if (av[1] == NULL)
 			continue;
 		if (handle_builtin(unhashed) == 0)
 			continue;
-		if (handle_alias(unhashed, pwd1) == 1)
-			continue;
 		else
 			exec(unhashed); }
 

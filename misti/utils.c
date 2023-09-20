@@ -133,7 +133,12 @@ char *_getenv(const char *env_var)
 		val = tab[1];
 		var = tab[0];
 		if (_strcmp(env_var, var) == 0)
+		{
+			free(var);
+			free(tab);
 			return (val);
+		}
+		free(var), free(val), free(tab);
 		i++;
 	}
 	return (NULL);
