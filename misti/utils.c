@@ -3,6 +3,7 @@
 /**
 * built_picker - returning the builtin command
 * @line: stdin input
+* @delimiter: character to split line with
 *
 * Return: builtin command
 */
@@ -22,13 +23,13 @@ end = i - 1;
 
 builtin = malloc(sizeof(char) * (end - start + 2));
 if (line == NULL)
-        return (NULL);
+	return (NULL);
 
 j = 0;
 for (i = start; i <= end; i++)
 {
-        builtin[j] = line[i];
-        j++;
+	builtin[j] = line[i];
+	j++;
 }
 builtin[j] = '\0';
 return (builtin);
@@ -37,7 +38,7 @@ return (builtin);
 
 /**
 * handle_builtin - handling builtin commands by rerouting
-* @builtin: builtin inputted
+* @line: line with builtin inputted
 *
 * Return: 0 if successful or -1 if it fails
 */
@@ -110,7 +111,7 @@ return (n);
 }
 
 /**
-* getenv - gets the value of the environment variable
+* _getenv - gets the value of the environment variable
 * @env_var: environment variable to value of
 *
 * Return: value of environment variable
@@ -126,15 +127,15 @@ char *_getenv(const char *env_var)
 		tab = strtow(environ[i], "=");
 		val = tab[1];
 		var = tab[0];
-		if (_strcmp(env_var, var) == 0 )
-			return(val);
+		if (_strcmp(env_var, var) == 0)
+			return (val);
 		i++;
 	}
 	return (NULL);
 }
 
 /**
-* hash_filter
+* hash_filter - removing comments
 * @line: pointer to line with hash comment
 *
 * Return: pointer to unhashed line or NULL on failure

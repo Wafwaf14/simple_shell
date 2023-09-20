@@ -14,7 +14,6 @@ extern char **environ;
 /**
  * struct list_s - singly linked list
  * @str: string - (malloc'ed string)
- * @len: length of the string
  * @next: points to the next node
  *
  * Description: singly linked list node structure
@@ -49,7 +48,7 @@ char *find_path(char *command);
 /**** BUILTIN COMMANDS *****/
 void envir(void);
 void exit_status(char *line);
-void _cd(char * line);
+void _cd(char *line);
 int handle_builtin(char *line);
 char *built_picker(char *line, const char *delimiter);
 int _atoi(char *s);
@@ -65,8 +64,11 @@ int add_alias(char *str, const char *bash_alias, char *pwd);
 void print_alias_name(const char *bash_alias, char *name);
 int print_alias_all(const char *bash_alias);
 int alias_char_finder(char *lias);
-int change_alias_value(const char *bash_alias, char *str, char *name, char *value, char *pwd);
-int check_alias_name(const char *bash_alias, char *strin, char *value, char *pwd);
-int replace_bash(int fd, const char *tempsi, const char *bash_alias);
+int change_alias_value(const char *bash_alias, char *str,
+char *name, char *value, char *pwd);
+int check_alias_name(const char *bash_alias,
+char *strin, char *value, char *pwd);
+int replace_bash(int fd, const char *tempsi,
+const char *bash_alias);
 
 #endif
