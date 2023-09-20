@@ -1,46 +1,43 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <errno.h>  
 
-char *gitline(const char *command) {
-    FILE *fp;
-    char buffer[128];
-    char *result = NULL;
-    size_t result_size = 0;
+#define MAX_LINE_LENGTH 100
 
-    fp = popen(command, "r");
-    if (fp == NULL) {
-        perror("Failed to run Git command");
-        exit(EXIT_FAILURE);
-    }
+int gitline(char *line) {
+    int c;
+    int i = 0;
 
-    while (fgets(buffer, sizeof(buffer), fp) != NULL) {
-        size_t line_length = strlen(buffer);
-        result = realloc(result, result_size + line_length + 1);
-        if (result == NULL) {
-            perror("Memory allocation failed");
-            exit(EXIT_FAILURE);
+    while (1) {
+        c = getchar();
+
+        if (c == EOF || c == '\n') {
+            line[i] = '\0';
+            return 1;
+        } else if (i < MAX_LINE_LENGTH - 1) {
+            line[i] = (char)c;
+            i++;
+        } else {
+            line[MAX_LINE_LENGTH - 1] = '\0';
+            while ((c = getchar()) != '\n' && c != EOF);
+            return 0;
         }
-        strcpy(result + result_size, buffer);
-        result_size += line_length;
+    }
+}
+
+int main(int argc, char **argv) {
+    (void)argc;
+    char line[MAX_LINE_LENGTH];
+
+    write(1, "$ ", 2);
+
+    if (gitline(line)) {
+        printf("%s\n", line);
+    } else {
+        printf("Line was too long and got truncated: %s\n", line);
     }
 
-     pclose(fp);
-    return result;
-}
-int main(int ac, char **av)
-{
-	(void)ac;
-	char *buffer = NULL;
-	size_t size_buffer = 0;
-	int num_char = 0;
-
-	write(1, "$ ",2);
-	num_char = getline(&buffer, &size_buffer, stdin);
-	if (num_char == EOF)
-		perror("getline");
-	printf("%s\n", buffer);
-
-	return (0);
+    return 0;
 }
 
