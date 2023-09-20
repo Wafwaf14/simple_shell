@@ -50,18 +50,23 @@ const char *builtin = (const char *)built_picker(line, " ");
 if (_strcmp(builtin, "env") == 0)
 {
 	envir();
+	free((char *)builtin);
 	return (0);
 }
 else if (_strcmp(builtin, "exit") == 0)
 {
 	exit_status(line);
+	free((char *)builtin);
 	return (0);
 }
 else if (_strcmp(builtin, "cd") == 0)
 {
 	_cd(line);
+	free((char *)builtin);
 	return (0);
 }
+
+free((char *)builtin);
 return (-1);
 }
 
