@@ -100,7 +100,7 @@ typedef struct pass_info /* Ensures that memory leaks are avoided */
 
 /**
  * struct built_in - contains a builtin string and related function
- * type: the builtin command flag
+ * @type: the builtin command flag
  * @func: the function to execute
  */
 typedef struct built_in
