@@ -19,22 +19,25 @@ You should have an AUTHORS file at the root of your repository, listing all indi
 The only difference is when you print an error, the name of the program must be equivalent to your argv[0] (See below)
 Example of error with sh:</p>
 
-`$ echo "qwerty" | /bin/sh
+```bash
+$ echo "qwerty" | /bin/sh
 /bin/sh: 1: qwerty: not found
 $ echo "qwerty" | /bin/../bin/sh
 /bin/../bin/sh: 1: qwerty: not found
-$`
-
+$
+```
 <p>Same error with your program hsh:</p>
-
-`$ echo "qwerty" | ./hsh<br>
+```bash
+$ echo "qwerty" | ./hsh<br>
 ./hsh: 1: qwerty: not found<br>
 $ echo "qwerty" | ./././hsh<br>
 ./././hsh: 1: qwerty: not found<br>
-$`
+$
+```
 
 <h3>List of allowed functions and system calls</h3>
-`access (man 2 access)<br>
+```
+access (man 2 access)<br>
 chdir (man 2 chdir)<br>
 close (man 2 close)<br>
 closedir (man 3 closedir)<br>
@@ -64,7 +67,8 @@ wait (man 2 wait)<br>
 waitpid (man 2 waitpid)<br>
 wait3 (man 2 wait3)<br>
 wait4 (man 2 wait4)<br>
-write (man 2 write)</p>
+write (man 2 write)
+```
 
 <h3>Compilation</h3>
 <p>Your shell will be compiled this way:</p>
@@ -73,17 +77,17 @@ write (man 2 write)</p>
 
 <h3>Testing</h3>
 <p>Your shell should work like this in interactive mode:</p>
-
-`$ ./hsh<br>
+```bash
+$ ./hsh<br>
 ($) /bin/ls<br>
 hsh main.c shell.c<br>
 ($)<br>
 ($) exit<br>
-$`
-
+$
+```
 <p>But also in non-interactive mode:</p>
-
-`$ echo "/bin/ls" | ./hsh<br>
+``` bash
+$ echo "/bin/ls" | ./hsh<br>
 hsh main.c shell.c test_ls_2<br>
 $<br>
 $ cat test_ls_2<br>
@@ -93,4 +97,5 @@ $<br>
 $ cat test_ls_2 | ./hsh<br>
 hsh main.c shell.c test_ls_2<br>
 hsh main.c shell.c test_ls_2<br>
-$`
+$
+```
