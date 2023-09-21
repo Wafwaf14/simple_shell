@@ -74,3 +74,33 @@ char *_strcat(char *dest, char *src)
 	*dest = *src;
 	return (ret);
 }
+
+/**
+ * count_words - Counts the number of words in a string
+ * @str: The string to count
+ * @delimiter: separator of words
+ *
+ * Return: The number of words, or 0 if str is NULL or empty
+ */
+int count_words(char *str, const char *delimiter)
+{
+int i, count, in_word;
+
+if (str == NULL || str[0] == '\0')
+	return (0);
+
+in_word = 0;
+count = 0;
+for (i = 0; str[i] != '\0'; i++)
+{
+	if (str[i] == *delimiter)
+		in_word = 0;
+	else if (in_word == 0)
+	{
+		in_word = 1;
+		count++;
+	}
+}
+
+return (count);
+}
