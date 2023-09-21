@@ -37,14 +37,12 @@ if (tab[1] != NULL && tab[2] == NULL)
 	for (j = 0; j < 2; j++)
 		free(tab[j]);
 	free(tab);
-	free(line);
 	exit(exit_code);
 }
 else if (tab[1] == NULL)
 {
 	free(tab[0]);
 	free(tab);
-	free(line);
 	exit(1);
 }
 else
