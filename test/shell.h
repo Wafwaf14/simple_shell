@@ -201,7 +201,7 @@ char **get_environ(info_t *);
 int _unsetenv(info_t *, char *);
 int _setenv(info_t *, char *, char *);
 
-/* FUNCTIONS IN HISTORY.C */
+/* FUNCTIONS IN SHELL_HISTORY.C */
 char *get_history_file(info_t *info);
 int write_history(info_t *info);
 int read_history(info_t *info);
