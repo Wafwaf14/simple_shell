@@ -110,24 +110,24 @@ typedef struct built_in
 } builtin_table;
 
 
-/* FUNCTIONS IN SHELL_LOOP.C */
+/* FUNCTIONS IN LOOP_SHELL.C */
 int hsh(info_t *, char **);
 int find_builtin(info_t *);
 void find_cmd(info_t *);
 void fork_cmd(info_t *);
 
-/* FUNCTIONS IN PARSER.C */
+/* FUNCTIONS IN PARSE.C */
 int is_cmd(info_t *, char *);
 char *dup_chars(char *, int, int);
 char *find_path(info_t *, char *, char *);
 
-/* FUNCTIONS IN ERRORS.C */
+/* FUNCTIONS IN ERRORS2.C */
 void _eputs(char *);
 int _eputchar(char);
 int _putfd(char c, int fd);
 int _putsfd(char *str, int fd);
 
-/* FUNCTIONS IN STRING.C */
+/* FUNCTIONS IN STRING2.C */
 int _strlen(char *);
 int _strcmp(char *, char *);
 char *starts_with(const char *, const char *);
@@ -140,24 +140,24 @@ char *_strdup(const char *);
 void _puts(char *);
 int _putchar(char);
 
-/* FUNCTIONS IN EXITS.C */
+/* FUNCTIONS IN EXIT.C */
 char *_strncpy(char *, char *, int);
 char *_strncat(char *, char *, int);
 char *_strchr(char *, char);
 
-/* FUNCTIONS IN TOKENIZER.C */
+/* FUNCTIONS IN TOKENIZATION.C */
 char **strtow(char *, char *);
 char **strtow2(char *, char);
 
-/* FUNCTIONS IN REALLOC.C */
+/* FUNCTIONS IN _REALLOC.C */
 char *_memset(char *, char, unsigned int);
 void ffree(char **);
 void *_realloc(void *, unsigned int, unsigned int);
 
-/* FUNCTION IN MEMORY.C */
+/* FUNCTION IN MEM.C */
 int bfree(void **);
 
-/* FUNCTIONS IN _ATOI.C */
+/* FUNCTIONS IN ATOI.C */
 int interactive(info_t *);
 int is_delim(char, char *);
 int _isalpha(int);
@@ -170,7 +170,7 @@ int print_d(int, int);
 char *convert_number(long int, int, int);
 void remove_comments(char *);
 
-/* FUNCTIONS IN BUILTIN.C */
+/* FUNCTIONS IN BUILTIN2.C */
 int _myexit(info_t *);
 int _mycd(info_t *);
 int _myhelp(info_t *);
@@ -184,19 +184,19 @@ ssize_t get_input(info_t *);
 int _getline(info_t *, char **, size_t *);
 void sigintHandler(int);
 
-/* FUNCTIONS IN GETINFO.C */
+/* FUNCTIONS IN GETINFOS.C */
 void clear_info(info_t *);
 void set_info(info_t *, char **);
 void free_info(info_t *, int);
 
-/* FUNCTIONS IN ENVIRON.C */
+/* FUNCTIONS IN ENVIRONMENT.C */
 char *_getenv(info_t *, const char *);
 int _myenv(info_t *);
 int _mysetenv(info_t *);
 int _myunsetenv(info_t *);
 int populate_env_list(info_t *);
 
-/* FUNCTIONS IN GETENV.C */
+/* FUNCTIONS IN GETENVIRON.C */
 char **get_environ(info_t *);
 int _unsetenv(info_t *, char *);
 int _setenv(info_t *, char *, char *);
@@ -208,7 +208,7 @@ int read_history(info_t *info);
 int build_history_list(info_t *info, char *buf, int linecount);
 int renumber_history(info_t *info);
 
-/* FUNCTIONS IN LISTS.C */
+/* FUNCTIONS IN LISTS2.C */
 list_t *add_node(list_t **, const char *, int);
 list_t *add_node_end(list_t **, const char *, int);
 size_t print_list_str(const list_t *);
@@ -222,7 +222,7 @@ size_t print_list(const list_t *);
 list_t *node_starts_with(list_t *, char *, char);
 ssize_t get_node_index(list_t *, list_t *);
 
-/* FUNCTIONS IN VARS.C */
+/* FUNCTIONS IN VARIABLES.C */
 int is_chain(info_t *, char *, size_t *);
 void check_chain(info_t *, char *, size_t *, size_t, size_t);
 int replace_alias(info_t *);
