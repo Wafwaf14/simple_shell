@@ -2,15 +2,15 @@
 <h2>Requirements</h2>
 <h3>General</h3>
 Allowed editors: vi, vim, emacs
-<p>All your files will be compiled on Ubuntu 20.04 LTS using gcc, using the options -Wall -Werror -Wextra -pedantic -std=gnu89
-All your files should end with a new line
-A README.md file, at the root of the folder of the project is mandatory
-Your code should use the Betty style. It will be checked using betty-style.pl and betty-doc.pl
-Your shell should not have any memory leaks
-No more than 5 functions per file
-All your header files should be include guarded
-Use system calls only when you need to (why?)
-Write a README with the description of your project
+<p>All your files will be compiled on Ubuntu 20.04 LTS using gcc, using the options -Wall -Werror -Wextra -pedantic -std=gnu89<br>
+All your files should end with a new line<br>
+A README.md file, at the root of the folder of the project is mandatory<br>
+Your code should use the Betty style. It will be checked using betty-style.pl and betty-doc.pl<br>
+Your shell should not have any memory leaks<br>
+No more than 5 functions per file<br>
+All your header files should be include guarded<br>
+Use system calls only when you need to (why?)<br>
+Write a README with the description of your project<br>
 You should have an AUTHORS file at the root of your repository, listing all individuals having contributed content to the repository. </p>
 
 <h2>More Info</h2>
@@ -27,6 +27,7 @@ $ echo "qwerty" | /bin/../bin/sh
 $
 ```
 <p>Same error with your program hsh:</p>
+
 ```bash
 $ echo "qwerty" | ./hsh<br>
 ./hsh: 1: qwerty: not found<br>
@@ -36,6 +37,7 @@ $
 ```
 
 <h3>List of allowed functions and system calls</h3>
+
 ```
 access (man 2 access)<br>
 chdir (man 2 chdir)<br>
@@ -77,6 +79,7 @@ write (man 2 write)
 
 <h3>Testing</h3>
 <p>Your shell should work like this in interactive mode:</p>
+
 ```bash
 $ ./hsh<br>
 ($) /bin/ls<br>
@@ -86,6 +89,7 @@ hsh main.c shell.c<br>
 $
 ```
 <p>But also in non-interactive mode:</p>
+
 ``` bash
 $ echo "/bin/ls" | ./hsh<br>
 hsh main.c shell.c test_ls_2<br>
